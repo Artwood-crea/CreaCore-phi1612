@@ -1681,15 +1681,15 @@ double ConvertBitsToDouble(unsigned int nBits)
     }
 
     return dDiff;
-} 
+}
 
 int64_t GetBlockValue(int nHeight)
 {
     CAmount nSubsidy = 0;
-    CAmount nSlowSubsidy = 45 * COIN;
+    CAmount nSlowSubsidy = 50 * COIN;
 
     if (nHeight == 0) {
-        nSubsidy = 1136956.00 * COIN;
+        nSubsidy = 1200000.00 * COIN;
     } else if (nHeight < Params().RAMP_TO_BLOCK() / 2) {
            nSlowSubsidy /= Params().RAMP_TO_BLOCK();
            nSlowSubsidy *= nHeight;
@@ -1697,11 +1697,11 @@ int64_t GetBlockValue(int nHeight)
             nSlowSubsidy /= Params().RAMP_TO_BLOCK();
             nSlowSubsidy *= nHeight;
     }
-    else if (nHeight <= 262800 && nHeight >= Params().RAMP_TO_BLOCK()) {
-        nSubsidy = 45 * COIN;
-    } else if (nHeight <= 525600 && nHeight > 262800) {
+    else if (nHeight <= 100000 && nHeight >= Params().RAMP_TO_BLOCK()) {
+        nSubsidy = 50 * COIN;
+    } else if (nHeight <= 500000 && nHeight > 100000) {
         nSubsidy = 40 * COIN;
-    } else if (nHeight <= 788400 && nHeight > 525600) {
+    } else if (nHeight <= 788400 && nHeight > 500000) {
         nSubsidy = 25 * COIN;
     } else if (nHeight <= 1051200 && nHeight > 788400) {
         nSubsidy = 15 * COIN;
@@ -5857,7 +5857,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
 }
 
 // Note: whenever a protocol update is needed toggle between both implementations (comment out the formerly active one)
-//       so we can leave the existing clients untouched (old SPORK will stay on so they don't see even older clients). 
+//       so we can leave the existing clients untouched (old SPORK will stay on so they don't see even older clients).
 //       Those old clients won't react to the changes of the other (new) SPORK because at the time of their implementation
 //
 
@@ -5876,9 +5876,9 @@ int ActiveProtocol()
 */
 
 
-    // SPORK_15 is used for 70910. Nodes < 70910 don't see it and still get their protocol version via SPORK_14 and their 
+    // SPORK_15 is used for 70910. Nodes < 70910 don't see it and still get their protocol version via SPORK_14 and their
     // own ModifierUpgradeBlock()
- 
+
     if (IsSporkActive(SPORK_15_NEW_PROTOCOL_ENFORCEMENT_2))
             return MIN_PEER_PROTO_VERSION_AFTER_ENFORCEMENT;
 
