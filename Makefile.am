@@ -224,4 +224,4 @@ CLEANFILES = $(OSX_DMG) $(BITCOIN_WIN_INSTALLER)
 .INTERMEDIATE: $(COVERAGE_INFO)
 
 clean-local:
-	rm -rf test_folm.coverage/ total.coverage/ $(OSX_APP)
+rm -rf test_folm.coverage/ total.coverage/ $(OSX_APP)
